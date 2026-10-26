@@ -1,5 +1,11 @@
 import pandas as pd
 def clean_data(data):
+    """Clean Data
+    Takes raw data and cleans it. It removes the blank footer rows at the bottom of the dataset. Makes the years more readable and interpretable
+    Renames columns, and takes missing values and encodes them as NaN instead of ".."
+    Outputs cleaned dataset
+    
+    """
     df = data.dropna(subset=["Series Code"]).copy()
     df.columns = [c.split(" [")[0] for c in df.columns]
     df = df.rename(columns={
@@ -10,9 +16,15 @@ def clean_data(data):
     })
     year_cols = [c for c in df.columns if c.isdigit()]
     df[year_cols] = df[year_cols].apply(pd.to_numeric, errors="coerce")
+    
     return df.reset_index(drop=True)
 
-def melt_data(data):
+
+def reshape_data(data):
+    """
+    Takes cleaned data and reshapes it so that the columns are now the year, followed by the macroeconomic indicators.
+    Outputs melted database for easier analysis.
+    """
     indicators = {
         "NY.GDP.MKTP.KD.ZG": "gdp_growth",
         "FP.CPI.TOTL.ZG": "inflation",
@@ -39,14 +51,18 @@ def melt_data(data):
     return wide
 
 
-def summary(data):
+def summary_by_country(data):
+    """
+    Gives mean, median, count, and distribution by country.
+    Outputs dictionary of dataframe with keys count, mean, median, and distribution (min,max,std), indexed by country.
+    """
     indicators = ["gdp_growth", "inflation", "unemployment", "private_credit", "trade"]
-    by_country = data.groupby("country")[indicators]
-    count = by_country.count()
-    mean = by_country.mean().round(2)
-    median = by_country.median().round(2)
-    distribution = by_country.agg(["min","max","std"]).round(2)
-    return {"count": count, "mean": mean, "median": median,
-            "distribution": distribution}
+    summary = (
+        data.groupby("country")[indicators]
+        .agg(["count", "mean", "median", "min", "max", "std"])
+        .round(2)
+    )
+    summary.columns = [f"{ind}_{stat}" for ind, stat in summary.columns]
+    return summary
 
 
