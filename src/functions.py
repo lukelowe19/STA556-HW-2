@@ -1,9 +1,10 @@
 import pandas as pd
 def clean_data(data):
     """Clean Data
+    Input: Raw data
     Takes raw data and cleans it. It removes the blank footer rows at the bottom of the dataset. Makes the years more readable and interpretable
-    Renames columns, and takes missing values and encodes them as NaN instead of ".."
-    Outputs cleaned dataset
+    Renames columns, and takes missing values and encodes them as NaN instead of "..".
+    Output: Cleaned dataset.
     
     """
     df = data.dropna(subset=["Series Code"]).copy()
@@ -22,8 +23,11 @@ def clean_data(data):
 
 def reshape_data(data):
     """
-    Takes cleaned data and reshapes it so that the columns are now the year, followed by the macroeconomic indicators.
-    Outputs melted database for easier analysis.
+    Reshape Data
+    Input: Cleaned data
+    Cleans data and reshapes it so that the columns are now the year, followed by the macroeconomic indicators.
+    Output: Reshaped data for easier analysis.
+
     """
     indicators = {
         "NY.GDP.MKTP.KD.ZG": "gdp_growth",
@@ -53,8 +57,11 @@ def reshape_data(data):
 
 def summary_by_country(data):
     """
+    Summary by Country
+    Input: Reshaped data
     Gives mean, median, count, and distribution by country.
-    Outputs dictionary of dataframe with keys count, mean, median, and distribution (min,max,std), indexed by country.
+    Output: Dataframe of summary statistics
+
     """
     indicators = ["gdp_growth", "inflation", "unemployment", "private_credit", "trade"]
     summary = (
