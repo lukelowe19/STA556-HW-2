@@ -32,13 +32,15 @@ This homework is an exploratory data analysis of a World Bank World Development 
 **Visualization**
 1. Inflation and GDP growth do not show a clear relationship, although we do see an interesting cluster of countries with low GDP growth and low inflation during the year 2020. This is from the recession caused by the COVID-19 pandemic.
 
-![Inflation vs. GDP growth](../figures/inflation_GDP_growth.png)
+<img src="figures/inflation_GDP_growth.png" alt="Inflation vs. GDP growth" width="500">
 
 2. The effects of the COVID-19 pandemic can also be seen from the view of trade. When looking at the density of trade over time, there is a much denser distribution of trade at lower levels during the COVID-19 pandemic, but as restrictions on trade lifted the density of trade expanded and began to include higher values. 
 
-![Distribution of Trade](../figures/dist_of_trade.png)
+<img src="figures/dist_of_trade.png" alt="Distribution of Trade" width="500">
+
 
 3. Inflation and trade appear to have some association. Nations with higher amounts of trade (as % of GDP) tend to have lower inflation. Just from this figure there is not sufficient evidence to imply that trade mitigates inflation, but there does seem to be some association.
 
-![Trade vs Inflation](../figures/trade_inflation.png)
+<img src="figures/trade_inflation.png" alt="Trade vs Inflation" width="500">
+
 
